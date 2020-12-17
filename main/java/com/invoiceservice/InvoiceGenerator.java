@@ -7,9 +7,9 @@ public class InvoiceGenerator
     private static final double MINIMUM_FARE = 5;
     public RideRepository rideRepository;
 
-    public InvoiceGenerator()
+    public void setRideRepository(RideRepository rideRepository)
     {
-        rideRepository = new RideRepository();
+        this.rideRepository = rideRepository;
     }
 
     public double calculateFare(double distance, int time)
@@ -22,7 +22,7 @@ public class InvoiceGenerator
     {
         double totalFare = 0;
         for (Ride ride: rides) {
-            totalFare += calculateFare(ride.distance, ride.time);
+            totalFare += ride.cabRide.calcCostOfCabRide(ride);
         }
         return new InvoiceSummary(rides.length, totalFare);
     }
@@ -36,4 +36,5 @@ public class InvoiceGenerator
     {
         return calculateFare(rideRepository.getRides(userId));
     }
+
 }
